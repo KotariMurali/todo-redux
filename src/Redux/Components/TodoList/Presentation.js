@@ -2,7 +2,8 @@ import React from "react";
 import '../../Styles/Todo.css'
 import { TiDelete } from "react-icons/ti";
 const Presentation = (props) => {
-  const { input, todos, Addtodo, handleTodos, handleInput, DeleteTodo } = props;
+  const {  input,Todos, Addtodo,  handleInput, DeleteTodo } = props;
+  console.log(Todos+"===============presentation===============")
   return (
     <div>
       <div className="App">
@@ -17,7 +18,7 @@ const Presentation = (props) => {
             add
           </button>
         </form>
-        {todos.map((todo, index) => (
+        {Todos.map((todo, index) => (
           <ul className="list" key={todo}>
             {todo}
             <span>

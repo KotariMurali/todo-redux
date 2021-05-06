@@ -1,52 +1,56 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import {Addtodos} from '../../Actions/Actioncreators'
+import { Addtodos } from "../../Actions/Actioncreators";
 import Presentation from "./Presentation";
 
 const Container = (props) => {
-  console.log(props);
-  const [input, setinput] = useState("");
-  const [todos, settodos] = useState([]);
+  const { todos } = props;
+  const [state, setstate] = useState({
+    Todos: [],
+    input:""
+  });
   const handleInput = (e) => {
-    setinput(e.target.value);
+   setstate({input:e.target.value})
   };
-  const handleTodos = (e) => {
-    settodos(e.target.value);
-  };
+  // const handleTodos = (e) => {
+  //   settodos(e.target.value);
+  // };
   const Addtodo = (e) => {
-    settodos([...todos, input]);
+    console.log(todos+"=================container==============");
+    setstate({
+      Todos:[...todos,
+        input
+      ]
+    })
     setinput("");
     e.preventDefault();
     const key = Date.now;
     console.log(key);
   };
-  const DeleteTodo = (index) => {
-    const Tododata = todos.filter((todo, i) => index !== i);
+  // const DeleteTodo = (index) => {
+  //   const Tododata = todos.filter((todo, i) => index !== i);
 
-    settodos(Tododata);
-  };
+  //   settodos(Tododata);
+  // };
   return (
     <div>
       <Presentation
-        input={input}
-        todos={todos}
+      {...state}
         Addtodo={Addtodo}
         handleInput={handleInput}
-        handleTodos={handleTodos}
-        settodos={settodos}
-        DeleteTodo={DeleteTodo}
+        // DeleteTodo={DeleteTodo}
       />
     </div>
   );
 };
-const mapStateToProps=(state)=>{
-  return{
-    todos:state.todos
-  }
-}
-const mapDispatchToProps=()=>{
-  return{
-_Addtodos:()=>dispatch(Addtodos())
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Container)
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todos,
+  };
+};
+const mapDispatchToProps = () => {
+  return {
+    _Addtodos: () => dispatch(Addtodos()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Container);
