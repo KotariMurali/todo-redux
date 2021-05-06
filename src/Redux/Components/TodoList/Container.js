@@ -1,31 +1,21 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Addtodos } from "../../Actions/Actioncreators";
 import Presentation from "./Presentation";
-
+import { handleTodo } from "../../middleware/index";
 const Container = (props) => {
-  const { todos } = props;
-  const [state, setstate] = useState({
-    Todos: [],
-    input:""
-  });
+  console.log(props)
+  const {todos, _handleTodo}=props
+  // console.log(_handleTodo)
+  const [input, setinput] = useState("");
+ 
   const handleInput = (e) => {
-   setstate({input:e.target.value})
+    setinput(e.target.value);
   };
-  // const handleTodos = (e) => {
-  //   settodos(e.target.value);
-  // };
+ 
   const Addtodo = (e) => {
-    console.log(todos+"=================container==============");
-    setstate({
-      Todos:[...todos,
-        input
-      ]
-    })
-    setinput("");
-    e.preventDefault();
-    const key = Date.now;
-    console.log(key);
+    e.preventDefault()
+    _handleTodo(input)
+    setinput("")
   };
   // const DeleteTodo = (index) => {
   //   const Tododata = todos.filter((todo, i) => index !== i);
@@ -35,7 +25,8 @@ const Container = (props) => {
   return (
     <div>
       <Presentation
-      {...state}
+        input={input}
+        todos={todos}
         Addtodo={Addtodo}
         handleInput={handleInput}
         // DeleteTodo={DeleteTodo}
@@ -43,14 +34,14 @@ const Container = (props) => {
     </div>
   );
 };
-const mapStateToProps = (state) => {
+const mapStatetoProps = (state) => {
   return {
     todos: state.todos,
   };
 };
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    _Addtodos: () => dispatch(Addtodos()),
+    _handleTodo: (payload) => dispatch(handleTodo(payload)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default connect(mapStatetoProps, mapDispatchToProps)(Container);

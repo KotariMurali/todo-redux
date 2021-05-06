@@ -1,5 +1,7 @@
-import { createStore } from "redux";
-import Bookreducer from "../Reducers/Bookreducer";
+import { createStore,applyMiddleware } from "redux";
+import todoReducer from '../Reducers/todoReducer'
+import thunk from "redux-thunk"
+import {composeWithDevTools  } from "redux-devtools-extension"
 
-const store = createStore(Bookreducer);
+const store = createStore(todoReducer,composeWithDevTools(applyMiddleware(thunk)));
 export default store;
