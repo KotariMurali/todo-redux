@@ -2,8 +2,7 @@ import React from "react";
 import '../../Styles/Todo.css'
 import { TiDelete } from "react-icons/ti";
 const Presentation = (props) => {
-  const {  input,Todos, Addtodo,  handleInput, DeleteTodo } = props;
-  console.log(Todos+"===============presentation===============")
+  const { input, todos, Addtodo,handleInput,DeleteTodo } = props;
   return (
     <div>
       <div className="App">
@@ -18,15 +17,15 @@ const Presentation = (props) => {
             add
           </button>
         </form>
-        {Todos.map((todo, index) => (
+        {todos.map((todo, index) => (
           <ul className="list" key={todo}>
             {todo}
             <span>
-              <TiDelete
+              {/* <TiDelete
                 className="TiDelete"
                 key={index}
                 onClick={() => DeleteTodo(index)}
-              />
+              /> */}
             </span>
           </ul>
         ))}
